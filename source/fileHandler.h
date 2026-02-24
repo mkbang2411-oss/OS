@@ -6,7 +6,7 @@
 #include "Scheduler.h"
 using namespace std;
 
-class FileHandler // Ngoc Minh
+class FileHandler // Khanh Bang
 {
 public:
     static void readInput(

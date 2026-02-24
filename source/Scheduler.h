@@ -20,6 +20,8 @@ struct Process
     int turnaroundTime = 0;
     int waitingTime = 0;
 
+    bool isInQueue = false; // Flag biet da ton tai trong queue
+
     Process(string id, int arrival, int burst, int qIndex);
 };
 
@@ -43,7 +45,7 @@ class CPUQueue
 {
 public:
     string qid;
-    int timeSlice;
+    int timeSlice; // Thoi gian su dung CPU trong RoundRobin
     unique_ptr<SchedulingStrategy> strategy;
 
     vector<int> readyQueue;
@@ -59,7 +61,8 @@ public:
         CPUQueue &queue,
         vector<Process> &processes,
         int &currentTime,
-        vector<GanttEntry> &timeline) = 0;
+        vector<GanttEntry> &timeline,
+        int timeSlice) = 0;
 
     virtual ~SchedulingStrategy() {}
 };
@@ -71,7 +74,8 @@ public:
         CPUQueue &queue,
         vector<Process> &processes,
         int &currentTime,
-        vector<GanttEntry> &timeline) override; // Ngoc Minh
+        vector<GanttEntry> &timeline,
+        int timeSlice) override; // Ngoc Minh -> Nho reset isInQueue
 };
 
 class SRTNStrategy : public SchedulingStrategy
@@ -81,7 +85,8 @@ public:
         CPUQueue &queue,
         vector<Process> &processes,
         int &currentTime,
-        vector<GanttEntry> &timeline) override; // Ngoc Minh
+        vector<GanttEntry> &timeline,
+        int timeSlice) override; // Ngoc Minh -> Nho reset isInQueue
 };
 
 class Scheduler // OS gia lap
@@ -89,14 +94,18 @@ class Scheduler // OS gia lap
 private:
     vector<CPUQueue> queues;
     vector<Process> processes;
-    vector<GanttEntry> timeline;
+    vector<GanttEntry> timeline; // Danh dau cac thoi diem
 
-    void calculateMetrics(); // Ngoc Minh
+    void calculateMetrics(); // Ngoc Minh -> Tinh turnaround time va waiting time cua tung Process
 
 public:
     Scheduler(
-        const vector<CPUQueue> &q,
-        const vector<Process> &p);
+        vector<CPUQueue> &&q,
+        vector<Process> &&p);
 
     SimulationResult run(); // Khanh Bang
+
+    bool isAllDone() const;
+
+    void addProcessIntoQueue(int currentTime);
 };
