@@ -44,9 +44,9 @@ SimulationResult Scheduler::run()
     {
         addProcessIntoQueue(currentTime);
 
-        bool execute = false;
+        bool executed = false; // Check Time tro^'ng trong CPU timeSlice
 
-        for (int count = 0; count < queues.size(); count++)
+        for (int count = 0; count < queues.size(); count++) // Dam bao dung thu tu RoundRobin
         {
             int i = (currentQueue + count) % queues.size();
 
@@ -54,7 +54,7 @@ SimulationResult Scheduler::run()
             {
                 queues[i].strategy->execute(queues[i], processes, currentTime, timeline, queues[i].timeSlice);
                 currentQueue = (i + 1) % queues.size();
-                execute = true;
+                executed = true;
 
                 addProcessIntoQueue(currentTime);
 
@@ -62,7 +62,7 @@ SimulationResult Scheduler::run()
             }
         }
 
-        if (!execute)
+        if (!executed)
         {
             currentTime++;
             addProcessIntoQueue(currentTime);
@@ -84,8 +84,11 @@ SimulationResult Scheduler::run()
 
     result.processes = processes;
     result.timeline = timeline;
-    result.avgTurnaround = totalTurnaround / processes.size();
-    result.avgWaiting = totalWaiting / processes.size();
+    if (!processes.empty())
+    {
+        result.avgTurnaround = totalTurnaround / processes.size();
+        result.avgWaiting = totalWaiting / processes.size();
+    }
 
     return result;
 }
