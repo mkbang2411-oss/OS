@@ -92,3 +92,39 @@ SimulationResult Scheduler::run()
 
     return result;
 }
+void SJFStrategy :: execute(CPUQueue &queue, vector<Process> &process, int &currentTime, vector<GanttEntry> &timeline, int timeSlice){
+    int min = 0;
+    // Tìm readyQueue có remainingTime nhỏ nhất
+    if (queue.readyQueue.empty()) return;
+    for (int i = 1; i<queue.readyQueue.size(); i++ ){
+        int index1 = queue.readyQueue[i];
+        int index2 = queue.readyQueue[min];
+        if (process[index1].remainingTime < process[index2].remainingTime){
+            min = i;
+        }
+    }
+    int indexProcess = queue.readyQueue[min];
+    Process &p = process[indexProcess];
+    //Check process đã chạy xong hay chưa
+    int startTime = currentTime;
+    if (p.remainingTime <= timeSlice){
+        currentTime+=p.remainingTime;
+        timeline.push_back({
+            startTime, currentTime, queue.qid, p.pid
+        });
+        p.remainingTime = 0;
+        p.completionTime = currentTime;
+        p.isInQueue = false;
+        //xóa khỏi queue khi process đã chạy xong
+        queue.readyQueue.erase(queue.readyQueue.begin() + min);
+    } 
+    else {
+        currentTime+= timeSlice;
+        timeline.push_back({
+            startTime, currentTime, queue.qid, p.pid
+        });
+        p.remainingTime-=timeSlice;
+
+    }
+      
+}
