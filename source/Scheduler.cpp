@@ -125,6 +125,35 @@ void SJFStrategy :: execute(CPUQueue &queue, vector<Process> &process, int &curr
         });
         p.remainingTime-=timeSlice;
 
+    }  
+}
+void SRTNStrategy::execute (CPUQueue &queue, vector<Process>&processes, int &currentTime, vector<GanttEntry>&timeline, int timeSlice){
+    if (queue.readyQueue.empty()) return;
+    int usedTime = 0;
+    while (usedTime < timeSlice && !queue.readyQueue.empty()){
+        int min = 0;
+        for (int i = 1; i<queue.readyQueue.size(); i++){
+            int index1= queue.readyQueue[i];
+            int index2 = queue.readyQueue[min];
+            if (processes[index1].remainingTime < processes[index2].remainingTime){
+                min = i;
+            }
+        }
+        int indexProcess = queue.readyQueue[min];
+        Process &p = processes[indexProcess];
+        int startTime = currentTime;
+        currentTime++;
+        p.remainingTime--;
+        usedTime++;
+        timeline.push_back({
+            startTime, currentTime, queue.qid, p.pid
+        });
+        if (p.remainingTime == 0){
+            p.completionTime = currentTime;
+            p.isInQueue = false;
+            queue.readyQueue.erase(queue.readyQueue.begin() + min);
+        }
+        
     }
-      
+
 }
