@@ -157,3 +157,9 @@ void SRTNStrategy::execute (CPUQueue &queue, vector<Process>&processes, int &cur
     }
 
 }
+void Scheduler::calculateMetrics(){
+    for (auto &p:processes){
+        p.turnaroundTime = p.completionTime -p.arrivalTime;
+        p.waitingTime = p.completionTime - p.burstTime-p.arrivalTime;
+    }
+}
