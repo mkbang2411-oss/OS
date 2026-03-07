@@ -92,10 +92,12 @@ SimulationResult Scheduler::run()
 
     return result;
 }
+
 void SJFStrategy :: execute(CPUQueue &queue, vector<CPUQueue> &queues, vector<Process> &process, int &currentTime, vector<GanttEntry> &timeline, int timeSlice){
+    if (queue.readyQueue.empty()) return;
+
     int min = 0;
     // Tìm readyQueue có remainingTime nhỏ nhất
-    if (queue.readyQueue.empty()) return;
     for (int i = 1; i<queue.readyQueue.size(); i++ ){
         int index1 = queue.readyQueue[i];
         int index2 = queue.readyQueue[min];
@@ -103,10 +105,12 @@ void SJFStrategy :: execute(CPUQueue &queue, vector<CPUQueue> &queues, vector<Pr
             min = i;
         }
     }
+
     int indexProcess = queue.readyQueue[min];
     Process &p = process[indexProcess];
-    //Check process đã chạy xong hay chưa
     int startTime = currentTime;
+
+    //Check process đã chạy xong hay chưa
     if (p.remainingTime <= timeSlice){
         currentTime+=p.remainingTime;
         timeline.push_back({
@@ -117,6 +121,13 @@ void SJFStrategy :: execute(CPUQueue &queue, vector<CPUQueue> &queues, vector<Pr
         p.isInQueue = false;
         //xóa khỏi queue khi process đã chạy xong
         queue.readyQueue.erase(queue.readyQueue.begin() + min);
+
+        //De quy check lai neu con du thoi gian cho nhieu Queue
+        int usedTime = currentTime - startTime;
+        Scheduler::addProcessIntoQueue(queues, process, currentTime);
+        if (usedTime < timeSlice && !queue.readyQueue.empty()){
+            execute(queue, queues, process, currentTime, timeline, timeSlice - usedTime);
+        }
     } 
     else {
         currentTime+= timeSlice;
@@ -127,6 +138,7 @@ void SJFStrategy :: execute(CPUQueue &queue, vector<CPUQueue> &queues, vector<Pr
 
     }  
 }
+
 void SRTNStrategy::execute (CPUQueue &queue, vector<CPUQueue> &queues, vector<Process>&processes, int &currentTime, vector<GanttEntry>&timeline, int timeSlice){
     if (queue.readyQueue.empty()) return;
     int usedTime = 0;
