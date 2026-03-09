@@ -87,7 +87,9 @@ static string centerStr(string s, int w)
 {
     int len = s.size();
     if (len >= w)
+    {
         return s.substr(0, w);
+    }
 
     int left = (w - len) / 2;
     int right = w - len - left;
@@ -153,9 +155,20 @@ static vector<Block> makeBlocks(vector<string> occupy, vector<int> ticks)
 // in 1 hangg
 void printRow(ofstream &fout, string label, bool mainRow, vector<Block> blocks, int labelW, int cellW)
 {
-    char h = mainRow ? '=' : '-';
-    char v = mainRow ? '#' : '|';
-    char c = mainRow ? '#' : '+';
+    char h, v, c;
+
+    if (mainRow)
+    {
+        h = '=';
+        v = '#';
+        c = '#';
+    }
+    else
+    {
+        h = '-';
+        v = '|';
+        c = '+';
+    }
 
     // dong tren
     fout << string(labelW, ' ');
@@ -275,7 +288,9 @@ void FileHandler::writeOutput(const string &filename, const SimulationResult &re
     for (int t = 1; t < totalEnd; t++)
     {
         if (cpuOccupy[t] != cpuOccupy[t - 1])
+        {
             ticks.push_back(t);
+        }
     }
 
     for (int qi = 0; qi < numSub; qi++)
@@ -283,7 +298,9 @@ void FileHandler::writeOutput(const string &filename, const SimulationResult &re
         for (int t = 1; t < totalEnd; t++)
         {
             if (qOccupy[qi][t] != qOccupy[qi][t - 1])
+            {
                 ticks.push_back(t);
+            }
         }
     }
 
@@ -300,25 +317,33 @@ void FileHandler::writeOutput(const string &filename, const SimulationResult &re
     for (int i = 0; i < result.processes.size(); i++)
     {
         if (result.processes[i].pid.size() > pidW)
+        {
             pidW = result.processes[i].pid.size();
+        }
     }
 
     for (int i = 0; i < subQueues.size(); i++)
     {
         if (subQueues[i].size() > pidW)
+        {
             pidW = subQueues[i].size();
+        }
     }
 
     int cellW = pidW + 2;
     if (cellW < 4)
+    {
         cellW = 4;
+    }
 
     int labelW = 5;
 
     for (int i = 0; i < subQueues.size(); i++)
     {
         if (subQueues[i].size() > labelW)
+        {
             labelW = subQueues[i].size();
+        }
     }
 
     labelW += 2;
@@ -335,7 +360,9 @@ void FileHandler::writeOutput(const string &filename, const SimulationResult &re
         int gap = cellW + 1 - ts.size();
 
         if (gap > 0)
+        {
             fout << string(gap, ' ');
+        }
     }
 
     fout << ticks.back() << endl;
