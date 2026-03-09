@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
 
     FileHandler::writeOutput(argv[2], result);
 
-    cout <<endl<< "Done! Output written to " << argv[2] << "\n";
+    cout <<endl<< "Done! " << "\n";
 
     return 0;
 }

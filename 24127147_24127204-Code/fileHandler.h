@@ -6,6 +6,7 @@
 #include "Scheduler.h"
 using namespace std;
 
+struct Block { string label; int span; };
 class FileHandler // Khanh Bang
 {
 public:

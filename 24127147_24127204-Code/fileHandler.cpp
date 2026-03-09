@@ -16,24 +16,24 @@ void FileHandler::readInput(
 {
     ifstream fin(filename);
 
-    if(!fin.is_open())
+    if (!fin.is_open())
     {
-        cerr<<"Cannot open file";
+        cerr << "Cannot open file";
         return;
     }
 
     int n;
-    fin>>n;
+    fin >> n;
 
-    //Doc thong tin queue
-    for (int i=0;i<n;i++)
+    // Doc thong tin queue
+    for (int i = 0; i < n; i++)
     {
         string qid, policy;
         int timeSlice;
 
-        fin>>qid>>timeSlice>>policy;
+        fin >> qid >> timeSlice >> policy;
 
-        unique_ptr <SchedulingStrategy> Policy;
+        unique_ptr<SchedulingStrategy> Policy;
 
         if (policy == "SRTN")
         {
@@ -45,23 +45,23 @@ void FileHandler::readInput(
         }
         else
         {
-            cerr<<"The policy is invalid";
+            cerr << "The policy is invalid";
             return;
         }
 
         queues.emplace_back(qid, timeSlice, move(Policy));
     }
 
-    //Doc thong tin Process
+    // Doc thong tin Process
     string pid;
-    while(fin>>pid)
+    while (fin >> pid)
     {
         int arrivalTime, burstTime;
         string qID;
-        fin>>arrivalTime>>burstTime>>qID;
+        fin >> arrivalTime >> burstTime >> qID;
 
         int qIndex = -1;
-        for (int j =0;j<queues.size();j++)
+        for (int j = 0; j < queues.size(); j++)
         {
             if (queues[j].qid == qID)
             {
@@ -69,218 +69,326 @@ void FileHandler::readInput(
                 break;
             }
         }
-        
+
         if (qIndex == -1)
         {
-            cerr<<"Process has invalid queue";
+            cerr << "Process has invalid queue";
             continue;
         }
 
-        processes.emplace_back(pid,arrivalTime, burstTime, qIndex);
+        processes.emplace_back(pid, arrivalTime, burstTime, qIndex);
     }
 
     fin.close();
-} 
-
-//Canh giua stirng Px, Qx -> la s
-//Trong khoang rong w
-static string centerStr(const string &s, int w)
-{
-    int pad = w - (int)s.size(); //so khoang trang can them
-    if (pad <= 0) return s.substr(0, w);
-    int lp = pad / 2;
-    return string(lp, ' ') + s + string(pad - lp, ' ');  //Tao / ghe'p chuoi cuoi cung sau tinh toan
 }
 
-//gop o^ cua cac doan lien tiep
-static vector<GanttEntry> mergeTimeline(const vector<GanttEntry> &raw)
+// canh giua chuo^~i trong 1 o
+static string centerStr(string s, int w)
 {
-    vector<GanttEntry> merged;
-    for (const auto &e : raw)
+    int len = s.size();
+    if (len >= w)
+        return s.substr(0, w);
+
+    int left = (w - len) / 2;
+    int right = w - len - left;
+
+    string res = "";
+    res += string(left, ' ');
+    res += s;
+    res += string(right, ' ');
+
+    return res;
+}
+
+static vector<GanttEntry> mergeTimeline(vector<GanttEntry> raw)
+{
+    vector<GanttEntry> result;
+
+    for (int i = 0; i < raw.size(); i++)
     {
-        //Dieu kien gop
-        if (!merged.empty() &&
-            merged.back().pid     == e.pid &&  // Cung 1 Process
-            merged.back().queueID == e.queueID &&  //Cung 1 Queue
-            merged.back().end     == e.start) // Thoi gian lien ke nhau
-            merged.back().end = e.end;
-        else
-            merged.push_back(e); //Khong thoa thi them e moi
+        if (result.size() > 0)
+        {
+            GanttEntry &last = result.back();
+
+            // neu pid + queue giong nhau va thoi gian lien tiep
+            if (last.pid == raw[i].pid && last.queueID == raw[i].queueID && last.end == raw[i].start)
+            {
+                last.end = raw[i].end;
+                continue;
+            }
+        }
+
+        result.push_back(raw[i]);
     }
-    return merged;
+
+    return result;
 }
 
-// Một "block" trong 1 row: nội dung + span bao nhiêu global-segment
-struct Block { string label; int span; };
-
-// Từ occupancy array + global ticks → tạo danh sách Block cho 1 row
-// Các segment liên tiếp có cùng label được gộp thành 1 block
-static vector<Block> makeBlocks(
-    const vector<string> &occupy,   // occupy[t] = label tại thời điểm t
-    const vector<int>    &ticks)    // global tick list
+static vector<Block> makeBlocks(vector<string> occupy, vector<int> ticks)
 {
-    int numSeg = (int)ticks.size() - 1;
     vector<Block> blocks;
-    for (int s = 0; s < numSeg; s++)
+
+    int seg = ticks.size() - 1;
+
+    for (int i = 0; i < seg; i++)
     {
-        string cur = occupy[ticks[s]];
-        if (!blocks.empty() && blocks.back().label == cur)
+        string label = occupy[ticks[i]];
+
+        if (blocks.size() > 0 && blocks.back().label == label)
+        {
             blocks.back().span++;
+        }
         else
-            blocks.push_back({cur, 1});
+        {
+            Block b;
+            b.label = label;
+            b.span = 1;
+            blocks.push_back(b);
+        }
     }
+
     return blocks;
 }
 
-// ═════════════════════════════════════════════════════════════════════
-//  WRITE OUTPUT
-// ═════════════════════════════════════════════════════════════════════
-void FileHandler::writeOutput(
-    const string          &filename,
-    const SimulationResult &result)
+// in 1 hangg
+void printRow(ofstream &fout, string label, bool mainRow, vector<Block> blocks, int labelW, int cellW)
+{
+    char h = mainRow ? '=' : '-';
+    char v = mainRow ? '#' : '|';
+    char c = mainRow ? '#' : '+';
+
+    // dong tren
+    fout << string(labelW, ' ');
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        int width = blocks[i].span * cellW + (blocks[i].span - 1);
+        fout << c << string(width, h);
+    }
+    fout << c << "\n";
+
+    // dong label
+    fout << left << setw(labelW) << label;
+
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        int width = blocks[i].span * cellW + (blocks[i].span - 1);
+        fout << v << centerStr(blocks[i].label, width);
+    }
+    fout << v << "\n";
+
+    // dong duoi
+    fout << string(labelW, ' ');
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        int width = blocks[i].span * cellW + (blocks[i].span - 1);
+        fout << c << string(width, h);
+    }
+    fout << c << "\n\n";
+}
+
+void FileHandler::writeOutput(const string &filename, const SimulationResult &result)
 {
     ofstream fout(filename);
-    if (!fout.is_open()) { cerr << "Cannot open output file: " << filename << "\n"; return; }
 
-    // ── Sub-queue IDs in first-appearance order ───────────────────────
+    if (!fout.is_open())
+    {
+        cout << "Cannot open file " << filename << endl;
+        return;
+    }
+
+    // lay danh sach cac sub queue
     vector<string> subQueues;
-    for (const auto &e : result.timeline)
+
+    for (int i = 0; i < result.timeline.size(); i++)
     {
+        string qid = result.timeline[i].queueID;
         bool found = false;
-        for (auto &q : subQueues) if (q == e.queueID) { found = true; break; }
-        if (!found) subQueues.push_back(e.queueID);
-    }
-    int numSub = (int)subQueues.size();
 
-    // ── Time range ────────────────────────────────────────────────────
+        for (int j = 0; j < subQueues.size(); j++)
+        {
+            if (subQueues[j] == qid)
+            {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            subQueues.push_back(qid);
+    }
+
+    int numSub = subQueues.size();
+
+    // tim THOI GIAN ket thuc cuoi
     int totalEnd = 0;
-    for (const auto &e : result.timeline) totalEnd = max(totalEnd, e.end);
 
-    // ── Per-sub-queue occupancy [qi][t] ───────────────────────────────
-    vector<vector<string>> qOccupy(numSub, vector<string>(totalEnd, ""));
-    for (const auto &e : result.timeline)
+    for (int i = 0; i < result.timeline.size(); i++)
     {
-        int qi = (int)(find(subQueues.begin(), subQueues.end(), e.queueID) - subQueues.begin());
-        for (int t = e.start; t < e.end; t++) qOccupy[qi][t] = e.pid;
+        if (result.timeline[i].end > totalEnd)
+            totalEnd = result.timeline[i].end;
     }
 
-    // ── CPU occupancy [t] = queueID running ──────────────────────────
-    vector<string> cpuOccupy(totalEnd, "");
-    for (const auto &e : result.timeline)
-        for (int t = e.start; t < e.end; t++) cpuOccupy[t] = e.queueID;
+    // ma?ng luu process dang chay tren tung queue
+    vector<vector<string>> qOccupy;
 
-    // ── Global ticks = union of ALL change boundaries ─────────────────
-    // (needed so all rows share the same column grid for alignment)
+    for (int i = 0; i < numSub; i++)
+    {
+        vector<string> temp(totalEnd, "");
+        qOccupy.push_back(temp);
+    }
+
+    for (int i = 0; i < result.timeline.size(); i++)
+    {
+        string qid = result.timeline[i].queueID;
+
+        int qi = -1;
+        for (int j = 0; j < subQueues.size(); j++)
+        {
+            if (subQueues[j] == qid)
+            {
+                qi = j;
+                break;
+            }
+        }
+
+        for (int t = result.timeline[i].start; t < result.timeline[i].end; t++)
+        {
+            qOccupy[qi][t] = result.timeline[i].pid;
+        }
+    }
+
+    // QUEUE dang su dung CPU
+    vector<string> cpuOccupy(totalEnd, "");
+
+    for (int i = 0; i < result.timeline.size(); i++)
+    {
+        for (int t = result.timeline[i].start; t < result.timeline[i].end; t++)
+        {
+            cpuOccupy[t] = result.timeline[i].queueID;
+        }
+    }
+
+    // tim cac moc thoi gian
     vector<int> ticks;
     ticks.push_back(0);
+
     for (int t = 1; t < totalEnd; t++)
-        if (cpuOccupy[t] != cpuOccupy[t-1]) ticks.push_back(t);
+    {
+        if (cpuOccupy[t] != cpuOccupy[t - 1])
+            ticks.push_back(t);
+    }
+
     for (int qi = 0; qi < numSub; qi++)
+    {
         for (int t = 1; t < totalEnd; t++)
-            if (qOccupy[qi][t] != qOccupy[qi][t-1]) ticks.push_back(t);
+        {
+            if (qOccupy[qi][t] != qOccupy[qi][t - 1])
+                ticks.push_back(t);
+        }
+    }
+
     ticks.push_back(totalEnd);
+
     sort(ticks.begin(), ticks.end());
     ticks.erase(unique(ticks.begin(), ticks.end()), ticks.end());
-    int numSeg = (int)ticks.size() - 1;
 
-    // ── Cell & label widths ───────────────────────────────────────────
+    int numSeg = ticks.size() - 1;
+
+    // tinh do rong o
     int pidW = 2;
-    for (const auto &p : result.processes) pidW = max(pidW, (int)p.pid.size());
-    for (auto &q : subQueues)              pidW = max(pidW, (int)q.size());
-    int cellW = max(pidW + 2, 4); // inner width of 1 base segment
+
+    for (int i = 0; i < result.processes.size(); i++)
+    {
+        if (result.processes[i].pid.size() > pidW)
+            pidW = result.processes[i].pid.size();
+    }
+
+    for (int i = 0; i < subQueues.size(); i++)
+    {
+        if (subQueues[i].size() > pidW)
+            pidW = subQueues[i].size();
+    }
+
+    int cellW = pidW + 2;
+    if (cellW < 4)
+        cellW = 4;
 
     int labelW = 5;
-    for (auto &q : subQueues) labelW = max(labelW, (int)q.size());
+
+    for (int i = 0; i < subQueues.size(); i++)
+    {
+        if (subQueues[i].size() > labelW)
+            labelW = subQueues[i].size();
+    }
+
     labelW += 2;
 
     fout << "================== CPU SCHEDULING DIAGRAM ==================\n\n";
 
-    // ── Time axis ─────────────────────────────────────────────────────
     fout << string(labelW, ' ');
+
     for (int s = 0; s < numSeg; s++)
     {
         string ts = to_string(ticks[s]);
         fout << ts;
-        int gap = (cellW + 1) - (int)ts.size();
-        if (gap > 0) fout << string(gap, ' ');
+
+        int gap = cellW + 1 - ts.size();
+
+        if (gap > 0)
+            fout << string(gap, ' ');
     }
-    fout << to_string(ticks.back()) << "\n";
 
-    // ── Draw one pipe row, with block-spanning ────────────────────────
-    // A block with span=k occupies k segments → inner width = k*cellW + (k-1)*1
-    //   because shared borders between adjacent cells collapse into 1
-    // Visual:  +----+----+  (2 separate cells, 3 borders)
-    //      vs  +----------+  (1 merged cell, 2 borders)
-    //   merged inner = 2*cellW + 1  (one extra char for the eaten border)
+    fout << ticks.back() << endl;
 
-    auto printPipeRow = [&](const string &label, bool isMain,
-                            const vector<Block> &blocks)
+    // in dong CPU
+    printRow(fout, "CPU", true, makeBlocks(cpuOccupy, ticks), labelW, cellW);
+
+    // in cac queue
+    for (int i = 0; i < numSub; i++)
     {
-        char hB = isMain ? '=' : '-';
-        char vB = isMain ? '#' : '|';
-        char co = isMain ? '#' : '+';
-
-        // top border  – draw a divider at every block boundary
-        fout << string(labelW, ' ');
-        for (const auto &b : blocks)
-        {
-            int innerW = b.span * cellW + (b.span - 1); // merged inner width
-            fout << co << string(innerW, hB);
-        }
-        fout << co << "\n";
-
-        // content row
-        {
-            ostringstream oss; oss << left << setw(labelW) << label;
-            fout << oss.str();
-        }
-        for (const auto &b : blocks)
-        {
-            int innerW = b.span * cellW + (b.span - 1);
-            fout << vB << centerStr(b.label, innerW);
-        }
-        fout << vB << "\n";
-
-        // bottom border
-        fout << string(labelW, ' ');
-        for (const auto &b : blocks)
-        {
-            int innerW = b.span * cellW + (b.span - 1);
-            fout << co << string(innerW, hB);
-        }
-        fout << co << "\n\n";
-    };
-
-    // CPU row
-    printPipeRow("CPU", true,  makeBlocks(cpuOccupy, ticks));
-
-    // Sub-queue rows
-    for (int qi = 0; qi < numSub; qi++)
-        printPipeRow(subQueues[qi], false, makeBlocks(qOccupy[qi], ticks));
-
+        vector<Block> blocks = makeBlocks(qOccupy[i], ticks);
+        printRow(fout, subQueues[i], false, blocks, labelW, cellW);
+    }
 
     fout << "\n================ PROCESS STATISTICS ================\n";
+    fout << endl;
 
     const int cw[] = {10, 9, 7, 12, 12, 9};
-    const int totalW = cw[0]+cw[1]+cw[2]+cw[3]+cw[4]+cw[5];
 
     fout << left
-         << setw(cw[0]) << "Process"  << setw(cw[1]) << "Arrival"
-         << setw(cw[2]) << "Burst"    << setw(cw[3]) << "Completion"
-         << setw(cw[4]) << "Turnaround" << setw(cw[5]) << "Waiting" << "\n";
-    fout << string(totalW, '-') << "\n";
+         << setw(cw[0]) << "Process"
+         << setw(cw[1]) << "Arrival"
+         << setw(cw[2]) << "Burst"
+         << setw(cw[3]) << "Completion"
+         << setw(cw[4]) << "Turnaround"
+         << setw(cw[5]) << "Waiting" << endl;
 
-    for (const auto &p : result.processes)
+    int totalW = cw[0] + cw[1] + cw[2] + cw[3] + cw[4] + cw[5];
+
+    fout << string(totalW, '-') << endl;
+
+    for (int i = 0; i < result.processes.size(); i++)
+    {
+        const Process &p = result.processes[i];
+
         fout << left
-             << setw(cw[0]) << p.pid          << setw(cw[1]) << p.arrivalTime
-             << setw(cw[2]) << p.burstTime     << setw(cw[3]) << p.completionTime
-             << setw(cw[4]) << p.turnaroundTime << setw(cw[5]) << p.waitingTime << "\n";
+             << setw(cw[0]) << p.pid
+             << setw(cw[1]) << p.arrivalTime
+             << setw(cw[2]) << p.burstTime
+             << setw(cw[3]) << p.completionTime
+             << setw(cw[4]) << p.turnaroundTime
+             << setw(cw[5]) << p.waitingTime
+             << endl;
+    }
 
-    fout << string(totalW, '-') << "\n";
+    fout << string(totalW, '-') << endl;
+    fout << endl;
+
     fout << fixed << setprecision(1);
-    fout << "Average Turnaround Time : " << result.avgTurnaround << "\n";
-    fout << "Average Waiting Time    : " << result.avgWaiting    << "\n";
-    fout << string(totalW, '=') << "\n";
+    fout << "Average Turnaround Time : " << result.avgTurnaround << endl;
+    fout << "Average Waiting Time    : " << result.avgWaiting << endl;
+
+    fout << string(totalW, '=') << endl;
 
     fout.close();
 }
