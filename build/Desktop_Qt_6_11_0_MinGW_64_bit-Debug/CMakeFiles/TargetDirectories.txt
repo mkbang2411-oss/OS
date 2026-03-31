@@ -1,0 +1,5 @@
+C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS.dir
+C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen_timestamp_deps.dir
+C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen.dir

@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "OS",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "OS::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OS-Debug-731b335d89f3f35d2974.json",
+					"name" : "OS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OS_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OS_autogen-Debug-81527eb49dd5288d45da.json",
+					"name" : "OS_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OS_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OS_autogen_timestamp_deps-Debug-630e951b510cb78fa1ab.json",
+					"name" : "OS_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug",
+		"source" : "C:/Users/THIS PC/Documents/OS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
