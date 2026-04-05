@@ -85,6 +85,7 @@ class CPUQueue
 {
 public:
     string qid;
+    string algorithmName; // Thêm so với project 1
     int timeSlice;
     unique_ptr<SchedulingStrategy> strategy;
 
@@ -111,11 +112,13 @@ public:
 
     static void addProcessIntoQueue(vector<CPUQueue> &queues, vector<Process> &processes, int currentTime);
 
+    ///////
+
     SimulationResult run(); // Tinh chinh lai ham run-> thay bang ham run duoi -> sua lai cach input + output file
 
-    static SimulationResult run(
-        vector<CPUQueue> queues,
-        vector<Process> processes);
+    static SimulationResult run(vector<CPUQueue> &&queues, vector<Process> &&processes);
+
+    //////
 
     static bool parseInputFromString(
         const string &content,
