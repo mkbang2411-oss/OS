@@ -95,3 +95,18 @@ int FAT32:: clusterToSector(int cluster){ // đổi từ cluster sang sector
     int firstDataSector = boot.reservedSectors + boot.numFAT * boot.sectorsPerFAT;// data bắt đầu từ sector?
     return firstDataSector + (cluster-2) * boot.sectorsPerCluster;
 }
+void FAT32::scanAllTxtFiles()
+{
+    files.clear();
+    parseDirectory(boot.rootCluster);
+}
+
+vector<TxtFile> FAT32::getTxtFiles()
+{
+    return files;
+}
+
+TxtFile FAT32::getFile(int index)
+{
+    return files[index];
+}
