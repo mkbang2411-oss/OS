@@ -5,11 +5,11 @@
 #include <algorithm>
 #include "FAT32.h"
 using namespace std;
-static unsigned short readUnit16(const unsigned char* p){// vì fat32 chỉ lưu bằng 2 byte nên dùng short
-    return (unsigned short) (p[0]| (p[1]<<8)); // p[0] là byte thấp p[1] là byte cao, p[1] dịch sang trái 8 bit ghép với p[0]
+static unsigned int readUnit16(const unsigned char* p){// vì fat32 chỉ lưu bằng 2 byte nên dùng short
+    return (unsigned int) (p[0]| (p[1]<<8)); // p[0] là byte thấp p[1] là byte cao, p[1] dịch sang trái 8 bit ghép với p[0]
 }
-static unsigned short readUnit32(const unsigned char* p){
-    return (unsigned short) (p[0] | (p[1]<<8) | (p[2]<<16) | (p[3] << 24));
+static unsigned int readUnit32(const unsigned char* p){
+    return (unsigned int) (p[0] | (p[1]<<8) | (p[2]<<16) | (p[3] << 24));
 }
 static string trimRightSpace (const string& s){
     int end = (int) s.size()-1;
@@ -73,12 +73,16 @@ void FAT32::readBootSector(){
         throw runtime_error("Khong mo duoc o dia");
     }
     DWORD bytesRead = 0;
+    SetFilePointer(hDrive, 0 , NULL, FILE_BEGIN);
+    const DWORD bootSectorSize = 512;
     BOOL ok = ReadFile(hDrive, buffer, boot.bytesPerSector,&bytesRead, NULL);
     //đọc từ hrive ghi vào buffer, đọc boot.bytesPerSector ghi vào bytesRead
     CloseHandle(hDrive);
-    if (!ok || bytesRead!=512){
+    if (!ok || bytesRead!= bootSectorSize){
         throw runtime_error("Khong doc doc Boost Sector");
     }
+    if (buffer[510] != 0x55 || buffer[511] != 0xAA)
+        throw runtime_error("Boot Sector khong hop le");
     boot.bytesPerSector = readUnit16(buffer + 0x0B); // 1 sector có bao nhiêu byte
     boot.sectorsPerCluster = buffer[0x0D]; // một cluster có bao nhiêu byte
     boot.reservedSectors = readUnit16(buffer + 0x0E);// số sector dành cho boot sector và vùng system
@@ -94,6 +98,10 @@ BootSector FAT32:: getBootSector(){
 int FAT32:: clusterToSector(int cluster){ // đổi từ cluster sang sector
     int firstDataSector = boot.reservedSectors + boot.numFAT * boot.sectorsPerFAT;// data bắt đầu từ sector?
     return firstDataSector + (cluster-2) * boot.sectorsPerCluster;
+}
+// KB
+void FAT32::parseDirectory(int startCluster, const std::string &currentPath)
+{
 }
 void FAT32::scanAllTxtFiles()
 {

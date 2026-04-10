@@ -115,12 +115,9 @@ GUI::GUI(QWidget *parent)
     setupUI();
 
 #ifdef _WIN32
-    for (char c = 'A'; c <= 'Z'; ++c) {
-        QString drive = QString("%1:").arg(QChar(c));
-        if (QDir(drive).exists()) {
-            driveCombo->addItem(drive);
-        }
-    }
+    driveCombo->clear();
+    driveCombo->addItem("C:");
+    driveCombo->addItem("D:");
 #else
     driveCombo->addItem("E:");
 #endif
@@ -312,11 +309,16 @@ void GUI::onLoadClicked()
 
     try {
         fat.setDrive(drive.toStdString());
+        QMessageBox::information(this, "Debug", "setDrive OK");
 
         fat.readBootSector();
+        QMessageBox::information(this, "Debug", "readBootSector OK");
+        
         displayBootSector(fat.getBootSector());
+        QMessageBox::information(this, "Debug", "displayBootSector OK");
 
         fat.scanAllTxtFiles();
+        QMessageBox::information(this, "Debug", "scanAllTxtFiles OK");
 
         fileList->clear();
 
@@ -330,6 +332,9 @@ void GUI::onLoadClicked()
         QMessageBox::information(this, "Done",
                                  QString("Loaded %1 file(s) from %2").arg(count).arg(drive));
         tabWidget->setCurrentIndex(0);
+    }
+    catch (const std::exception &e) {
+        QMessageBox::critical(this, "Error", e.what());
     }
     catch (...) {
         QMessageBox::critical(this, "Error", "Failed to load USB drive.");

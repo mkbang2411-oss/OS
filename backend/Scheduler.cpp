@@ -182,3 +182,18 @@ void Scheduler::calculateMetrics()
         p.waitingTime = p.completionTime - p.burstTime - p.arrivalTime;
     }
 }
+//KB
+bool Scheduler::parseInputFromString(
+    const std::string &content,
+    std::vector<CPUQueue> &queues,
+    std::vector<Process> &processes)
+{
+    return false;
+}
+
+SimulationResult Scheduler::run(
+    std::vector<CPUQueue> &&queues,
+    std::vector<Process> &&processes)
+{
+    return SimulationResult{};
+}

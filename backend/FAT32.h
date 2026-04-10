@@ -28,14 +28,14 @@ using namespace std;
 // ============================================================
 struct BootSector
 {
-    int bytesPerSector;    // offset 0x0B, 2 byte
-    int sectorsPerCluster; // offset 0x0D, 1 byte
-    int reservedSectors;   // offset 0x0E, 2 byte  (so sector vung Boot)
-    int numFAT;            // offset 0x10, 1 byte
+    int bytesPerSector = 512;    // offset 0x0B, 2 byte
+    int sectorsPerCluster = 0; // offset 0x0D, 1 byte
+    int reservedSectors = 0;   // offset 0x0E, 2 byte  (so sector vung Boot)
+    int numFAT = 0;            // offset 0x10, 1 byte
     int sectorsPerFAT;     // offset 0x24, 4 byte  (FAT32 dung 0x24)
     int rootDirSectors;    // FAT32 = 0 (RDET nam trong Data Region)
-    int totalSectors;      // offset 0x20, 4 byte
-    int rootCluster;       // offset 0x2C, 4 byte  (thuong = 2)
+    int totalSectors = 0;      // offset 0x20, 4 byte
+    int rootCluster = 0;       // offset 0x2C, 4 byte  (thuong = 2)
 };
 
 // ============================================================
