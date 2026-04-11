@@ -1,19 +1,19 @@
 {
 	"AUTOGEN_COMMAND_LINE_LENGTH_MAX" : 32000,
-	"BUILD_DIR" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen",
-	"CMAKE_BINARY_DIR" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_BINARY_DIR" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug",
-	"CMAKE_CURRENT_SOURCE_DIR" : "C:/HDH/OS",
+	"BUILD_DIR" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen",
+	"CMAKE_BINARY_DIR" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "C:/Users/THIS PC/Documents/OS",
 	"CMAKE_EXECUTABLE" : "C:/Qt/Tools/CMake_64/bin/cmake.exe",
 	"CMAKE_LIST_FILES" : 
 	[
-		"C:/HDH/OS/CMakeLists.txt",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/qtcreator-project.cmake",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/package-manager.cmake",
+		"C:/Users/THIS PC/Documents/OS/CMakeLists.txt",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/qtcreator-project.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/package-manager.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystem.cmake.in",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/maintenance_tool_provider.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeSystem.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/.qtcreator/cmake-helper/maintenance_tool_provider.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCXXCompiler.cmake",
@@ -66,7 +66,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindBinUtils.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Compiler/GNU-FindBinUtils.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeGenericSystem.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake",
@@ -81,7 +81,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeRCCompiler.cmake.in",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeRCCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeRCInformation.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-windres.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeTestRCCompiler.cmake",
@@ -98,7 +98,7 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeDetermineCompilerSupport.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Internal/FeatureTesting.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompiler.cmake.in",
-		"C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
+		"C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/3.30.5/CMakeCXXCompiler.cmake",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/Platform/Windows-GNU-CXX-ABI.cmake",
 		"C:/Qt/6.11.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersion.cmake",
 		"C:/Qt/6.11.0/mingw_64/lib/cmake/Qt6Core/Qt6CoreConfigVersionImpl.cmake",
@@ -395,24 +395,34 @@
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
 		"C:/Qt/6.11.0/mingw_64/lib/cmake/Qt6/Qt6Dependencies.cmake"
 	],
-	"CMAKE_SOURCE_DIR" : "C:/HDH/OS",
+	"CMAKE_SOURCE_DIR" : "C:/Users/THIS PC/Documents/OS",
 	"CROSS_CONFIG" : false,
-	"DEP_FILE" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/deps",
+	"DEP_FILE" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/deps",
 	"DEP_FILE_RULE_NAME" : "OS_autogen/timestamp",
 	"HEADERS" : 
 	[
-		[ "C:/HDH/OS/backend/FAT32.h", "MU", "FVSNT77ZGO/moc_FAT32.cpp", null ],
 		[
-			"C:/HDH/OS/backend/Scheduler.h",
+			"C:/Users/THIS PC/Documents/OS/backend/FAT32.h",
+			"MU",
+			"FVSNT77ZGO/moc_FAT32.cpp",
+			null
+		],
+		[
+			"C:/Users/THIS PC/Documents/OS/backend/Scheduler.h",
 			"MU",
 			"FVSNT77ZGO/moc_Scheduler.cpp",
 			null
 		],
-		[ "C:/HDH/OS/frontend/GUI.h", "MU", "W4B5VDZ4WS/moc_GUI.cpp", null ]
+		[
+			"C:/Users/THIS PC/Documents/OS/frontend/GUI.h",
+			"MU",
+			"W4B5VDZ4WS/moc_GUI.cpp",
+			null
+		]
 	],
 	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
-	"INCLUDE_DIR" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/include",
-	"MOC_COMPILATION_FILE" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp",
+	"INCLUDE_DIR" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/include",
+	"MOC_COMPILATION_FILE" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp",
 	"MOC_DEFINITIONS" : 
 	[
 		"MINGW_HAS_SECURE_API=1",
@@ -436,8 +446,8 @@
 	],
 	"MOC_INCLUDES" : 
 	[
-		"C:/HDH/OS/backend",
-		"C:/HDH/OS/frontend",
+		"C:/Users/THIS PC/Documents/OS/backend",
+		"C:/Users/THIS PC/Documents/OS/frontend",
 		"C:/Qt/6.11.0/mingw_64/include/QtCore",
 		"C:/Qt/6.11.0/mingw_64/include",
 		"C:/Qt/6.11.0/mingw_64/mkspecs/win32-g++",
@@ -470,23 +480,23 @@
 		"-c",
 		"C:/Qt/Tools/CMake_64/share/cmake-3.30/Modules/CMakeCXXCompilerABI.cpp"
 	],
-	"MOC_PREDEFS_FILE" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/moc_predefs.h",
+	"MOC_PREDEFS_FILE" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/moc_predefs.h",
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 10,
-	"PARSE_CACHE_FILE" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen.dir/ParseCache.txt",
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "C:/Qt/6.11.0/mingw_64/bin/moc.exe",
 	"QT_UIC_EXECUTABLE" : "C:/Qt/6.11.0/mingw_64/bin/uic.exe",
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 11,
-	"SETTINGS_FILE" : "C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen.dir/AutogenUsed.txt",
+	"SETTINGS_FILE" : "C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/CMakeFiles/OS_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
-		[ "C:/HDH/OS/backend/FAT32.cpp", "MU", null ],
-		[ "C:/HDH/OS/backend/Scheduler.cpp", "MU", null ],
-		[ "C:/HDH/OS/frontend/GUI.cpp", "MU", null ],
-		[ "C:/HDH/OS/main.cpp", "MU", null ]
+		[ "C:/Users/THIS PC/Documents/OS/backend/FAT32.cpp", "MU", null ],
+		[ "C:/Users/THIS PC/Documents/OS/backend/Scheduler.cpp", "MU", null ],
+		[ "C:/Users/THIS PC/Documents/OS/frontend/GUI.cpp", "MU", null ],
+		[ "C:/Users/THIS PC/Documents/OS/main.cpp", "MU", null ]
 	],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],

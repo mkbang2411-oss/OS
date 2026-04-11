@@ -1,28 +1,21 @@
-# ninja log v5
-25	91	0	CMakeFiles/clean.additional	baedbe210acaa455
-91	108	0	clean	d3976bff2a059218
-36	1435	7974924066948285	OS_autogen/timestamp	dfe86315a704c93
-36	1435	7974924066948285	OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-36	1435	7974924066948285	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/timestamp	dfe86315a704c93
-36	1435	7974924066948285	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-1472	3012	7974924083780041	CMakeFiles/OS.dir/backend/Scheduler.cpp.obj	87c22da1e0ed34e5
-1455	6596	7974924119567103	CMakeFiles/OS.dir/main.cpp.obj	523b7719c581d7c1
-1464	6792	7974924121556332	CMakeFiles/OS.dir/backend/FAT32.cpp.obj	7f8a1cc39068708a
-1449	6878	7974924122445047	CMakeFiles/OS.dir/OS_autogen/mocs_compilation.cpp.obj	a9c912dbabf7f862
-1483	7589	7974924129505177	CMakeFiles/OS.dir/frontend/GUI.cpp.obj	fe2637a6488fb2b0
-7590	8269	7974924136314056	OS.exe	f022ff379544924b
-25	418	7974928561767060	OS_autogen/timestamp	dfe86315a704c93
-25	418	7974928561767060	OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-25	418	7974928561767060	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/timestamp	dfe86315a704c93
-25	418	7974928561767060	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-440	7941	7974928725104992	CMakeFiles/OS.dir/frontend/GUI.cpp.obj	fe2637a6488fb2b0
-7941	8617	7974928731762691	OS.exe	f022ff379544924b
-37	1301	7974955183592145	OS_autogen/timestamp	dfe86315a704c93
-37	1301	7974955183592145	OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-37	1301	7974955183592145	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/timestamp	dfe86315a704c93
-37	1301	7974955183592145	C:/HDH/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp	dfe86315a704c93
-1322	5383	7974955226137463	CMakeFiles/OS.dir/backend/FAT32.cpp.obj	7f8a1cc39068708a
-1312	7855	7974955250902850	CMakeFiles/OS.dir/main.cpp.obj	523b7719c581d7c1
-1303	7981	7974955252171804	CMakeFiles/OS.dir/OS_autogen/mocs_compilation.cpp.obj	a9c912dbabf7f862
-1332	8901	7974955261247303	CMakeFiles/OS.dir/frontend/GUI.cpp.obj	fe2637a6488fb2b0
-8902	9515	7974955267450686	OS.exe	f022ff379544924b
+# ninja log v7
+35	1144	7975848407757620	OS_autogen/timestamp	e048faa8f48512d1
+35	1144	7975848407757620	OS_autogen/mocs_compilation.cpp	e048faa8f48512d1
+35	1144	7975848407757620	C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/timestamp	e048faa8f48512d1
+35	1144	7975848407757620	C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp	e048faa8f48512d1
+1162	4257	7975848409557788	CMakeFiles/OS.dir/backend/Scheduler.cpp.obj	9a368d1092af292f
+1157	6292	7975848409514923	CMakeFiles/OS.dir/backend/FAT32.cpp.obj	d3b0c97aa2711d4c
+1152	8809	7975848409457426	CMakeFiles/OS.dir/main.cpp.obj	3211eafc97030567
+1146	9004	7975848409404992	CMakeFiles/OS.dir/OS_autogen/mocs_compilation.cpp.obj	b092fa26388eab46
+1168	10069	7975848409623145	CMakeFiles/OS.dir/frontend/GUI.cpp.obj	93f93fed865f8fef
+10070	10785	7975848498644722	OS.exe	a2d5a9a30c99cd72
+51	2584	7975851816117778	OS_autogen/timestamp	e048faa8f48512d1
+51	2584	7975851816117778	OS_autogen/mocs_compilation.cpp	e048faa8f48512d1
+51	2584	7975851816117778	C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/timestamp	e048faa8f48512d1
+51	2584	7975851816117778	C:/Users/THIS PC/Documents/OS/build/Desktop_Qt_6_11_0_MinGW_64_bit-Debug/OS_autogen/mocs_compilation.cpp	e048faa8f48512d1
+2604	5206	7975851818115371	CMakeFiles/OS.dir/backend/Scheduler.cpp.obj	9a368d1092af292f
+2597	7704	7975851818042529	CMakeFiles/OS.dir/backend/FAT32.cpp.obj	d3b0c97aa2711d4c
+2591	12414	7975851817982724	CMakeFiles/OS.dir/main.cpp.obj	3211eafc97030567
+2586	12643	7975851817932889	CMakeFiles/OS.dir/OS_autogen/mocs_compilation.cpp.obj	b092fa26388eab46
+2611	13803	7975851818185147	CMakeFiles/OS.dir/frontend/GUI.cpp.obj	93f93fed865f8fef
+13803	14603	7975851930109239	OS.exe	a2d5a9a30c99cd72
